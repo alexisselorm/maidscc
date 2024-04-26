@@ -4,6 +4,7 @@ html,
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #eee;
 }
 :host {
   --bright-blue: oklch(51.01% 0.274 263.83);
@@ -56,16 +57,6 @@ h1 {
 p {
   margin: 0;
   color: var(--gray-700);
-}
-
-main {
-  min-height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  box-sizing: inherit;
-  position: relative;
 }
 
 .angular-logo {
