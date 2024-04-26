@@ -1,15 +1,16 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatTableModule, MatTable } from '@angular/material/table';
-import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
-import { MatSortModule, MatSort } from '@angular/material/sort';
+import { MatTable } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { UserTableDataSource, UserTableItem } from './user-table-datasource';
+import { AngularMaterialModule } from '../angular-material.module';
 
 @Component({
   selector: 'app-user-table',
   templateUrl: './user-table.component.html',
   styleUrl: './user-table.component.css',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule]
+  imports: [AngularMaterialModule],
 })
 export class UserTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
