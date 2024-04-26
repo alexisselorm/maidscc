@@ -37,6 +37,7 @@ export class UserPageComponent implements OnInit {
       },
 
       (error) => {
+        this.isLoaded = true;
         console.log(error);
       }
     );
