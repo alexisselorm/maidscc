@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularMaterialModule } from '../angular-material.module';
 import { UserService } from '../services/user.service';
+import { ActivatedRoute } from '@angular/router';
+import { UserData, UserDetails } from '../data-response';
 
 @Component({
   selector: 'app-user-page',
@@ -9,10 +11,26 @@ import { UserService } from '../services/user.service';
   templateUrl: './user-page.component.html',
   styleUrl: './user-page.component.css',
 })
-export class UserPageComponent {
-  userId?: number;
-  constructor(private userService: UserService) {}
+export class UserPageComponent implements OnInit {
+  userId: number;
+  user?: UserDetails;
+  constructor(
+    private userService: UserService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    let idParam = this.activatedRoute.snapshot.paramMap.get('id')!;
+    this.userId = +idParam!;
+    console.log(this.userId);
+  }
+  ngOnInit(): void {
+    this.getUser(this.userId);
+  }
 
-  getUser(userId: number) {}
+  getUser(userId: number) {
+    this.userService.getUserById(userId).subscribe((user) => {
+      this.user = user.data;
+      console.log(user);
+    });
+  }
   name = 'Alexis Selorm Gbeckor-Kove';
 }

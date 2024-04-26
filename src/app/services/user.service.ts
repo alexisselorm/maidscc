@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DataResponse, UserData } from '../data-response';
+import { DataResponse, UserData, UserDetails } from '../data-response';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class UserService {
     });
   }
 
-  getUserById(id: string): Observable<UserData> {
+  getUserById(id: number): Observable<UserData> {
     return this.http.get<UserData>(`https://reqres.in/api/users/${id}`);
   }
 }

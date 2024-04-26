@@ -1,9 +1,6 @@
 export interface UserData {
-  id: number;
-  email: string;
-  first_name: string;
-  last_name: string;
-  avatar: string;
+  data: UserDetails;
+  support: Support;
 }
 
 interface Support {
@@ -18,4 +15,12 @@ export interface DataResponse {
   total_pages: number;
   data: UserData[];
   support: Support;
+}
+
+export interface UserDetails {
+  id: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+  avatar: string;
 }
