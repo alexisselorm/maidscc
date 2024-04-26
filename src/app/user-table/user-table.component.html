@@ -1,10 +1,18 @@
+<mat-form-field [hidden]="!users" class="full-width-table">
+  <input
+    matInput
+    #filter
+    (keyup)="onsearchTextChanged(filter.value)"
+    placeholder="Filter by name (or part of it)..."
+  />
+</mat-form-field>
+<mat-progress-bar mode="indeterminate" *ngIf="!isLoaded"></mat-progress-bar>
+
 <table
   mat-table
   [dataSource]="users"
   [hidden]="!users"
   class="full-width-table"
-  matSort
-  aria-label="Elements"
 >
   <!-- Id Column -->
   <ng-container matColumnDef="id">

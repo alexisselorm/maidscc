@@ -4,9 +4,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   imports: [
@@ -15,7 +15,8 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     MatToolbarModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule,
+
+    MatProgressBarModule,
     MatInputModule,
     RouterLink,
     RouterOutlet,
@@ -26,7 +27,8 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     MatToolbarModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule,
+
+    MatProgressBarModule,
     MatInputModule,
     RouterLink,
     RouterOutlet,

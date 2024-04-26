@@ -1,5 +1,6 @@
 <section>
-  <div class="container py-5">
+  <mat-progress-bar mode="indeterminate" *ngIf="!isLoaded"></mat-progress-bar>
+  <div class="container py-5" [hidden]="!user">
     <div class="row">
       <div class="col">
         <nav

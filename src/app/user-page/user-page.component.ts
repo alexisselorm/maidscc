@@ -14,6 +14,7 @@ import { UserData, UserDetails } from '../data-response';
 export class UserPageComponent implements OnInit {
   userId: number;
   user?: UserDetails;
+  isLoaded = false;
   constructor(
     private userService: UserService,
     private activatedRoute: ActivatedRoute
@@ -27,10 +28,18 @@ export class UserPageComponent implements OnInit {
   }
 
   getUser(userId: number) {
-    this.userService.getUserById(userId).subscribe((user) => {
-      this.user = user.data;
-      console.log(user);
-    });
+    this.isLoaded = false;
+    this.userService.getUserById(userId).subscribe(
+      (user) => {
+        this.user = user.data;
+        console.log(user);
+        this.isLoaded = true;
+      },
+
+      (error) => {
+        console.log(error);
+      }
+    );
   }
   name = 'Alexis Selorm Gbeckor-Kove';
 }
