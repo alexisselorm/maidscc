@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DataResponse } from '../data-response';
+import { DataResponse, UserData } from '../data-response';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,14 +9,16 @@ import { DataResponse } from '../data-response';
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  getUsers(pageIndex: number) {
-    let params = new HttpParams().set('page', pageIndex);
+  getUsers(pageIndex: number, pageSize: number): Observable<DataResponse> {
+    let params = new HttpParams()
+      .set('page', pageIndex)
+      .set('per_page', pageSize);
     return this.http.get<DataResponse>('https://reqres.in/api/users', {
       params,
     });
   }
 
-  getUserById(id: string) {
-    return this.http.get(`https://reqres.in/api/users/${id}`);
+  getUserById(id: string): Observable<UserData> {
+    return this.http.get<UserData>(`https://reqres.in/api/users/${id}`);
   }
 }

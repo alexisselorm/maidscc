@@ -1,3 +1,8 @@
 .full-width-table {
   width: 100%;
 }
+.round-small-image {
+  border-radius: 50%; /* Makes the image round */
+  width: 50px; /* Sets the width of the image */
+  height: 50px; /* Sets the height of the image */
+}
