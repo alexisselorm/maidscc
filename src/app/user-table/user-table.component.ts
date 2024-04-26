@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { AngularMaterialModule } from '../angular-material.module';
 import { UserService } from '../services/user.service';
 import { UserData } from '../data-response';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-user-table',
@@ -18,7 +19,7 @@ export class UserTableComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   public users!: MatTableDataSource<UserData>;
-  defaultPageIndex = 1;
+  defaultPageIndex = 0;
   defaultPageSize = 6;
   searchQuery?: string;
 
@@ -33,16 +34,15 @@ export class UserTableComponent implements OnInit {
 
   getUsers(event: PageEvent) {
     // let searchQuery = this.searchQuery ? this.searchQuery : null;
+    let requestIndex = event.pageIndex + 1;
 
-    this.userService
-      .getUsers(event.pageIndex, event.pageSize)
-      .subscribe((res) => {
-        console.log(res);
-        this.paginator.length = res.total;
-        this.paginator.pageIndex = res.page;
-        this.paginator.pageSize = res.per_page;
-        this.users = new MatTableDataSource<UserData>(res.data);
-      });
+    this.userService.getUsers(requestIndex, event.pageSize).subscribe((res) => {
+      this.paginator.length = res.total;
+      let adjustedPage = res.page - 1;
+      this.paginator.pageIndex = adjustedPage;
+      this.paginator.pageSize = res.per_page;
+      this.users = new MatTableDataSource<UserData>(res.data);
+    });
   }
 
   ngOnInit(): void {
