@@ -32,7 +32,6 @@ export class UserTableComponent implements OnInit {
   }
 
   getUsers(event: PageEvent) {
-    // let searchQuery = this.searchQuery ? this.searchQuery : null;
     let requestIndex = event.pageIndex + 1;
 
     this.userService.getUsers(requestIndex, event.pageSize).subscribe(
@@ -56,6 +55,7 @@ export class UserTableComponent implements OnInit {
   }
 
   filterUserData(filterText: any) {
+    console.log('I was called with: ' + filterText);
     this.users.filter = filterText;
   }
 
@@ -70,6 +70,5 @@ export class UserTableComponent implements OnInit {
     this.searchTextChanged.next(filterText);
   }
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name', 'email', 'avatar'];
 }
