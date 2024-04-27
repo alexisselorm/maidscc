@@ -53,7 +53,7 @@ export class UserTableComponent implements AfterViewInit {
         this.isLoaded = true;
       },
       (error) => {
-        this.isLoaded = false;
+        this.isLoaded = true;
         console.log(error);
       }
     );
