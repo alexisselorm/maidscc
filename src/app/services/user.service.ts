@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DataResponse, UserData, UserDetails } from '../data-response';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,12 +13,32 @@ export class UserService {
     let params = new HttpParams()
       .set('page', pageIndex)
       .set('per_page', pageSize);
-    return this.http.get<DataResponse>('https://reqres.in/api/users', {
-      params,
-    });
+    let url = `https://reqres.in/api/users?${params}`;
+    let cachedResponse = localStorage.getItem(url);
+    if (cachedResponse) {
+      console.log('cache hit');
+      return of(JSON.parse(cachedResponse));
+    }
+    return this.http.get<DataResponse>(url).pipe(
+      tap((response) => {
+        console.log('cache miss');
+        localStorage.setItem(url, JSON.stringify(response));
+      })
+    );
   }
 
   getUserById(id: number): Observable<UserData> {
-    return this.http.get<UserData>(`https://reqres.in/api/users/${id}`);
+    let url = `https://reqres.in/api/users/${id}`;
+    let cachedResponse = localStorage.getItem(url);
+    if (cachedResponse) {
+      console.log('cache hit');
+      return of(JSON.parse(cachedResponse));
+    }
+    return this.http.get<UserData>(url).pipe(
+      tap((response) => {
+        console.log('cache miss');
+        localStorage.setItem(url, JSON.stringify(response));
+      })
+    );
   }
 }

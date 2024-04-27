@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, ErrorHandler } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -9,13 +9,13 @@ import {
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
-import { cachingInterceptor } from './http-interceptors/caching-interceptor';
+import { errorInterceptor } from './http-interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideClientHydration(),
     provideAnimationsAsync(),
-    provideHttpClient(withFetch(), withInterceptors([cachingInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([errorInterceptor])),
   ],
 };

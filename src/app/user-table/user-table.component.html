@@ -53,6 +53,7 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
 <mat-paginator
+  [hidden]="!users"
   (page)="getUsers($event)"
   [pageIndex]="defaultPageIndex"
   [pageSize]="defaultPageSize"

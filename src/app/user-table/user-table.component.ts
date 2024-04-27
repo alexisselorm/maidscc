@@ -1,4 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ViewChild,
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { AngularMaterialModule } from '../angular-material.module';
@@ -13,8 +18,11 @@ import { Subject, debounceTime, distinctUntilChanged, tap } from 'rxjs';
   standalone: true,
   imports: [AngularMaterialModule],
 })
-export class UserTableComponent implements OnInit {
-  constructor(private userService: UserService) {}
+export class UserTableComponent implements AfterViewInit {
+  constructor(
+    private userService: UserService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   public users!: MatTableDataSource<UserData>;
@@ -36,6 +44,7 @@ export class UserTableComponent implements OnInit {
 
     this.userService.getUsers(requestIndex, event.pageSize).subscribe(
       (res) => {
+        console.log(res);
         this.paginator.length = res.total;
         let adjustedPage = res.page - 1;
         this.paginator.pageIndex = adjustedPage;
@@ -50,8 +59,9 @@ export class UserTableComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.getData();
+    this.cd.detectChanges();
   }
 
   filterUserData(filterText: any) {
